@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Share My Location</title>
+</head>
+<body>
+  <h2>Click below to share your current location</h2>
+  <button onclick="getLocation()">Share Location</button>
+  <p id="output"></p>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        document.getElementById("output").innerHTML = "Geolocation not supported.";
+      }
+    }
+
+    function showPosition(position) {
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+      let mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
+      document.getElementById("output").innerHTML = 
+        `📍 Your Location: <a href="${mapLink}" target="_blank">${mapLink}</a>`;
+    }
+
+    function showError(error) {
+      document.getElementById("output").innerHTML = "Permission denied or error getting location.";
+    }
+  </script>
+</body>
+</html>
